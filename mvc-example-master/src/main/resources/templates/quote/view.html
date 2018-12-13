@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+<body>
+<div th:fragment="content">
+    <div class="page-header">
+        <h3>Quote</h3>
+    </div>
+
+    <dl class="dl-horizontal">
+        <dt>Author</dt>
+        <dd><a th:href="@{/author/{id}/(id=${quote.author.id})}" th:text="${quote.author.name}"/></dd>
+
+        <dt>Theme</dt>
+        <dd><a th:href="@{/theme/{id}/(id=${quote.theme.id})}" th:text="${quote.theme.title}"/></dd>
+    </dl>
+    <div class="well"  th:text="${quote.text}"></div>
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-10">
+            <a type="button" class="btn btn-primary" th:href="@{/quote/{id}/edit(id=${quote.id})}">Edit</a>
+            <button type="button" data-toggle="modal" data-target="#deletePopup" class="btn btn-danger" href="#">Delete</button>
+        </div>
+    </div>
+
+    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" id="deletePopup">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm removal</h4> </div>
+                <div class="modal-body">Are you sure you want to delete the Quote: <span th:text="${quote.text}"></span>?</div>
+                <div class="modal-footer">
+                    <form style="display: inline" th:action="@{/quote/{id}/delete(id=${quote.id})}" method="post">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
